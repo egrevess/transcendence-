@@ -1,0 +1,290 @@
+body, h1, h2, h3, p, ul, li, nav, section, footer {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*flex-direction: column;*/
+}
+
+:root {
+	--hover-color-text: rgb(0,189,187);
+	--color-text: color: rgb(75,75,80);
+}
+
+html {
+	font-size: 100%;
+	overflow-x: hidden;
+	scroll-padding-top: 5rem;
+	scroll-behavior: smooth;
+}
+
+/* Styles pour la barre de défilement verticale */
+html::-webkit-scrollbar {
+    width: .6rem; /* Largeur de la barre de défilement */
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent; /* Fond de la piste de défilement */
+}
+
+html::-webkit-scrollbar-thumb {
+    background: #b8a8f8; /* Couleur de la "petite barre" de défilement */
+    border-radius: 10px; /* Arrondit les coins de la barre de défilement */
+	height: .5rem;
+}
+
+/* Style pour :hover sur la barre de défilement pour la rendre un peu plus visible lors du survol */
+html::-webkit-scrollbar-thumb:hover {
+    background: #d8a8e6;
+}
+
+body {
+	/*background: url('../../images/2065277.jpg') no-repeat;*/
+	background-size: cover;
+	background-position: center;
+    background-attachment: fixed; /* L'image ne défile pas avec le contenu */
+	overflow: auto;
+	display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: #fff;
+	backdrop-filter: blur(20px);
+	color: var(--color-text);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2); /* Ombre plus prononcée */
+	display: flex;
+	height: 4rem;
+	top:0; left:0; right:0;
+	z-index: 1000;
+}
+
+header .rest-header {
+	display: flex;
+	width: 80%;
+	padding-left: 1rem;
+	align-items: center;
+	justify-content: space-between;
+}
+
+header .navbar{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+header .logo {
+	height: 100%;
+	width: 5rem;
+	color: #fff;
+	background: rgb(42,45,57);
+	display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; 
+
+}
+
+header .icons i{
+	color: black;
+	font-size: 1.7rem;
+	margin-left: .4rem;
+}
+
+header .icons i:hover{
+	color: var(--hover-color-text);
+}
+
+#menu-icon {
+	display: none;
+}
+
+@media (max-width:991px) {
+	
+	#menu-icon {
+		display: inline-block;
+	}
+
+	header .navbar {
+		position: absolute;
+		top: 100%; right: -100%;
+		width: 15rem;
+		height: max-content;
+		z-index: 2;
+		overflow-x: hidden;
+	}
+	
+	header .navbar.active {
+		right: 0;
+	}
+
+	header .navbar a {
+		margin: .7rem;
+		padding: .5rem;
+		display: block;
+		font-size: 17px;
+		color: var(--color-text);;
+	}
+
+	header .search-form {
+		width: 90%;
+		right: 2rem;
+	}
+}
+
+header .search-form {
+	color: #fff;
+	position: absolute;
+	top: 115%; left: 6rem;
+	width: 30rem;
+	height: 3rem;
+	display: flex;
+	align-items: center;
+	transform: scaleY(0);
+	transform-origin: top;
+	background: rgb(42,45,57);;
+	border: 2px solid rgba(255, 255, 255, .2);
+	backdrop-filter: blur(20px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	border-radius: 10px;
+}
+
+header .search-form.active {
+	transform: scaleY(1);
+}
+
+header .search-form.modif {
+	transform: scaleY(1);
+	border-radius: 10px 10px 0 0;
+}
+
+header .search-form input {
+	width: 100%;
+	height: 100%;
+	font-size: 1rem;
+	color: var(--color-text);
+	padding: 1rem;
+	text-transform: none;
+	outline: none;
+	border: none;
+	background: transparent;
+}
+
+header .search-results {
+	position: absolute;
+	top: 162%; 
+	right: 7%; 
+	width: 30rem;
+	display: flex;
+	align-items: center;
+	background: rgb(42,45,57);
+	backdrop-filter: blur(20px);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optionnel : ajoute une ombre douce pour la séparation */
+	border-radius: 0 0 10px 10px; 
+	border: 2px solid rgba(255, 255, 255, .2);
+	border-top: none;
+	transform: scaleY(0);
+	transform-origin: top;
+	max-height: 300px; /* Hauteur maximale avant de défiler, ajustez selon vos besoins */
+	overflow-y: auto;
+	z-index: 999;
+}
+
+header .search-results.active {
+	transform: scaleY(1);
+}
+
+header .search-result {
+	text-decoration: none;
+	background: transparent;
+	color: var(--color-text);;
+	width: 100%;
+	height: 100%;
+	font-size: 1rem;
+	padding: 1rem;
+	margin: 0.5rem 0; /* Ajoute un peu d'espace entre chaque résultat */
+}
+
+#search-box::placeholder{
+	color: var(--color-text);;
+}
+
+.navbar {
+	margin-left: 30%;
+}
+
+.navbar a {
+    margin: 0 .8rem;
+	color: var(--color-text);;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar i {
+	color: var(--color-text);
+	font-size: 1.7rem;
+}
+
+.navbar a:hover {
+	color: var(--hover-color-text);
+}
+
+.navbar i:hover {
+	color: var(--hover-color-text);
+}
+
+nav > ul > a {
+	float: left;
+	position: relative;
+	list-style-type: none;
+	gap: 1rem;
+
+}
+
+.navbar-left {
+	padding-top: 6rem;
+	position: fixed; /* Fixe la navbar à sa position */
+    height: 100%;
+	width: 5rem;
+    background-color: rgb(42,45,57); /* Couleur de fond de la navbar */
+    overflow: auto;
+}
+
+.navbar-left .content {
+    list-style-type: none; /* Enlève les puces */
+    padding: 0; /* Enlève le padding par défaut */
+	text-decoration: none;
+}
+
+.navbar-left li {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 1rem;
+}
+
+.navbar-left ul li a {
+    display: block; /* Rend les liens de la navbar en blocs (plus cliquables) */
+    color: white; /* Couleur du texte des liens */
+    padding: 10px; /* Padding autour des liens */
+    text-decoration: none; /* Enlève le soulignement des liens */
+}
+
+.navbar-left i {
+	font-size: 1.7rem;
+}
+
+.navbar-left i:hover {
+	color: var(--hover-color-text);
+}
+
+footer {
+    background: #fff;
+    color:  var(--color-text);;
+    text-align: center;
+    padding: 1em 0;
+	flex-shrink: 0;
+	margin-top: auto;
+	z-index: 1000;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2); 
+}

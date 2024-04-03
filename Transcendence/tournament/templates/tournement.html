@@ -1,0 +1,101 @@
+{% extends "base/base.html" %}
+   {% block content %}
+   {% load static %}
+   <link rel="stylesheet"  href="{% static 'css/tournement.css' %}">
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <section id="eventFormContainer" style="display:none;">
+	</section>
+   <div class="result">
+		
+   </div>
+   <div class="add-event">
+		<i id="add-event" class='bx bx-plus'></i>
+		<p>Add tournement</p>
+	</div>
+   {% if tournements %}
+	<div class="available-tour">
+		<h1>Tournois disponibles</h1>
+		{% for i in tournements %}
+			<div class="tournois-info">
+				<p> {{ i.name }} </p>
+				<p> {{ i.start }} </p>
+				<p> Nombre de teams autorisées </p>
+				<p> {{ i.teams }} </p>
+				<a href="{{ i.get_absolute_url }}">S'inscrire</a>
+			</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+
+<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	console.log('ca me soul ptn');
+	document.getElementById('add-event').addEventListener('click', toggleForm);
+	function toggleForm() {
+		console.log('click');
+		var url = "{% url 'tournament:add_tour' %}"
+		var formContainer = document.getElementById('eventFormContainer');
+		var isDisplayed = formContainer.style.display === "block";
+		$.ajax ({
+			url: url,
+			type: 'get',
+			success: function(data) {
+				console.log(data);
+				formContainer.style.display = isDisplayed ? "none" : "block";
+				if (isDisplayed) {
+					document.body.classList.remove('blurred');
+					removeModalBackdrop();
+				} else {
+					document.body.classList.add('blurred');
+					createModalBackdrop();
+					formContainer.innerHTML = data.form; // Insérer le formulaire dans le conteneur
+        			attachFormSubmitHandler(); 
+				}
+			}
+		})
+	}
+	
+	function createModalBackdrop() {
+		var backdrop = document.createElement('div');
+		backdrop.classList.add('modal-backdrop');
+		backdrop.onclick = toggleForm; // Clicking outside the form closes it
+		document.body.appendChild(backdrop);
+	}
+
+	function removeModalBackdrop() {
+		var backdrop = document.querySelector('.modal-backdrop');
+		if (backdrop) {
+			document.body.removeChild(backdrop);
+		}
+	}
+	function attachFormSubmitHandler() {
+		$("#eventForm").on('submit', function(e) {
+			e.preventDefault();
+			var url = "{% url 'tournament:add_tour' %}"
+			var csrftoken = Cookies.get('csrftoken');
+			$.ajax({
+				url: url,
+				type: 'post', // Utiliser POST pour soumettre le formulaire
+				data: $(this).serialize(), // Sérialiser les données du formulaire
+				headers: {
+					"X-CSRFToken": csrftoken
+				},
+				success: function(data) {
+					if (data.success) {
+						// alert('Plainte soumise avec succès!');
+						console.log('Événement ajouté avec succès');
+						toggleForm();
+						window.location.reload();
+						// Fermer le formulaire ou afficher un message de succès ici
+					} else {
+					// Gérez les erreurs ici
+					console.error('Erreur lors de l\'ajout de l\'événement', data.errors);
+					}
+				}
+			})
+			.catch(error => console.error('Erreur AJAX', error));
+		});
+	}
+  </script>
+{% endblock %}

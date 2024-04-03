@@ -1,0 +1,41 @@
+{% load static %} 
+<link rel="stylesheet"  href="{% static 'css/tournement.css' %}">
+<form class="eventForm" id="eventForm">
+	{% csrf_token %}
+	<div>
+		<button type="button" onclick="toggleForm()" class="closeButton">
+			<i class='bx bx-x'></i>
+		</button>
+	</div>
+	<div class="containForm">
+		<div>
+			<p>Name of tournement</p>
+			<div class="text">
+				{{ form.name }}
+			</div>
+		</div>
+		<div>
+			<p>Start</p>
+			<div class="text">
+				{{ form.start}}
+			</div>
+		</div>
+		<div>
+			<p>Number of teams</p>
+			<div class="text">
+				{{ form.teams }}
+			</div>
+		</div>
+	</div>
+	<div class="btn-div">
+	<button type="submit" class="btn">Ajouter</button>
+	</div>
+</form>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		document.getElementById("id_name").setAttribute("placeholder", "Description")
+		document.getElementById("id_start")
+		document.getElementById("id_teams")
+	});
+</script>

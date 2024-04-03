@@ -1,0 +1,181 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	/*font-family: "Poppins, sans-serif;*/
+}
+
+:root {
+	--hover-color-text: rgb(0,189,187);
+	--color-text: rgb(75,75,80);
+}
+/* Container Event caché et relié a event_form.html */
+
+#eventFormContainer {
+    position: fixed; /* or absolute */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* ensure it's above other content */
+}
+
+.eventForm {
+	width: 30rem;
+	height: 25rem;
+	margin: auto;
+	padding: auto;
+	padding-bottom: 1rem;
+	background: #fff;
+	box-shadow: 0 0 10px 0px rgba(0, 0, 0, .1);
+	border-radius: 20px;
+}
+
+.eventForm > div {
+	margin: 1rem;
+	font-size: 1.5rem;
+}
+
+.closeButton {
+	color: #b8a8f8;
+	font-size: 2rem;
+	margin-left: 90%;
+	margin-top: .5rem;
+}
+
+.closeButton, .closeButton:hover {
+    border: none;
+    background-color: transparent;
+    text-decoration: none; /* Désactive le soulignement ou tout autre effet de texte */
+}
+
+.eventForm .containForm > div {
+	justify-content: center;
+	margin: auto;
+	font-size: 1.2rem;
+}
+
+.containForm p {
+	padding: .5rem 3%;
+}
+
+.eventForm .containForm > div > div {
+	width: 75%;
+	height: 2.5rem;
+	display: flex;
+	justify-content: center;
+	margin: auto;
+	margin-bottom: 1rem;
+	padding: .5rem 3%;
+	border-radius: 40px;
+	border: 2px solid rgba(255, 255, 255, .2);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	background: var(--color-text);
+}
+
+#id_name, #id_start, #id_teams {
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	padding: .5rem 3%;
+	font-size: 16px;
+	background: transparent;
+	color: #fff;
+}
+
+#id_name::placeholder {
+	color: #fff;
+}
+
+.eventForm .btn-div {
+	display: flex;
+	justify-content: center;
+	border: 2px solid rgba(255, 255, 255, .2)
+}
+
+.eventForm .btn {
+	width: 80%;
+	padding: .5rem 3%;
+	background: var(--hover-color-text);
+	border: none;
+	outline: none;
+	border-radius: 40px;
+	border: 2px solid rgba(255, 255, 255, .2);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	cursor: pointer;
+	font-size: 16px;
+	color: #fff;
+	font-weight: 600;
+}
+
+.eventForm .btn:hover {
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* semi-transparent black */
+    z-index: 1; /* behind the modal */
+}
+
+body.blurred > :not(#eventFormContainer) {
+    filter: blur(5px);
+}
+
+/*PAGE TOURNOIS*/
+
+
+.add-event {
+	position: absolute;
+	display: flex;
+	top: 15%;
+	right: 5%;
+	width: 20rem;
+	justify-content: center;
+	text-align: center;
+	background: var(--hover-color-text);
+	border: 2px solid rgba(255, 255, 255, .2);
+	backdrop-filter: blur(20px);
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	padding: 1rem 4%;
+	gap: .5rem;
+	font-size: 1.2rem;
+	color: #fff;
+}
+
+.available-tour {
+	width: 50%;
+	justify-content: center;
+	text-align: center;
+	margin:auto;
+	background: transparent;
+	padding: 1rem 4%;
+	font-size: 1.2rem;
+	color: var(--hover-color-text);
+}
+
+.available-tour h1 {
+	padding-bottom: 1rem;
+}
+
+.available-tour .tournois-info{
+	width: 35rem;
+	display: flex;
+	justify-content: center;
+	margin:auto;
+	margin-bottom: 1rem;
+	background: var(--color-text);
+	border: 2px solid rgba(255, 255, 255, .2);
+	backdrop-filter: blur(20px);
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	padding: 1rem 4%;
+	font-size: 1rem;
+	gap: 1.7rem;
+	color: var(--hover-color-text);
+}

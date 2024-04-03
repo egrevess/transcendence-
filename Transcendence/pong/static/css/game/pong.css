@@ -1,0 +1,23 @@
+* {
+
+}
+
+.page-game {
+	margin: auto;
+	margin-top: 5rem;
+	text-align: center;
+	background: transparent;
+	/*display: flex;*/
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 50rem;
+}
+
+.page-game p {
+	color: rgb(75,75,80);
+	font-size: 16px;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
+
+}

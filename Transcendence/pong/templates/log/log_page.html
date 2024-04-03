@@ -1,0 +1,8 @@
+{% extends "../base/base.html" %}
+   {% block content %}
+   {% load static %}
+   <link rel="stylesheet"  href="{% static 'css/game/pong.css' %}">
+	<div>
+		<a href="{% url 'social:begin' 'api42' %}">Connexion via 42</a>
+	</div>
+{% endblock %}

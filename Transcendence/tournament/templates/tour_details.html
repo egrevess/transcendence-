@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+   {% block content %}
+   {% load static %}
+   <link rel="stylesheet"  href="{% static 'css/tournement.css' %}">
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <div class="result">
+		
+   </div>
+   {% if tournoi %}
+	<div class="available-tour">
+		<h1>tournoi {{ tournoi.name }}</h1>
+			<div class="tournois-info">
+
+				<p> Il commence à  {{ tournoi.start }} </p>
+				<p> Nombre de teams participantes : {{ tournoi.teams }}</p>
+				<p> Il reste x places disponibles </p>
+				<p> Pour s'inscrire vous devez déjà </p>
+			</div>
+	</div>
+	{% endif %}
+{% endblock %}
