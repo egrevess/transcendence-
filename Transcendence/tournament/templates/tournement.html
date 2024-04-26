@@ -19,8 +19,9 @@
 			<div class="tournois-info">
 				<p> {{ i.name }} </p>
 				<p> {{ i.start }} </p>
-				<p> Nombre de teams autorisées </p>
-				<p> {{ i.teams }} </p>
+				<p> Nombre de participants au total </p>
+				<p> {{ i.number_of_teams }} </p>
+				<p> {{ i.full }} </p>
 				<a href="{{ i.get_absolute_url }}">S'inscrire</a>
 			</div>
 		{% endfor %}

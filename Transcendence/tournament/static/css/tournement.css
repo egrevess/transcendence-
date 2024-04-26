@@ -150,9 +150,11 @@ body.blurred > :not(#eventFormContainer) {
 
 .available-tour {
 	width: 50%;
-	justify-content: center;
+	margin: auto;
 	text-align: center;
-	margin:auto;
+	align-items: center;
+	justify-content: center;
+	margin-top: 2rem;
 	background: transparent;
 	padding: 1rem 4%;
 	font-size: 1.2rem;
@@ -164,18 +166,69 @@ body.blurred > :not(#eventFormContainer) {
 }
 
 .available-tour .tournois-info{
-	width: 35rem;
-	display: flex;
-	justify-content: center;
-	margin:auto;
-	margin-bottom: 1rem;
+	width: 38rem;
+	text-align: left;
 	background: var(--color-text);
 	border: 2px solid rgba(255, 255, 255, .2);
 	backdrop-filter: blur(20px);
 	border-radius: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-	padding: 1rem 4%;
+	padding: .7rem 7%;
 	font-size: 1rem;
 	gap: 1.7rem;
 	color: var(--hover-color-text);
 }
+
+.tournois-info .info {
+	padding: .5rem 4%;
+	display: flex;
+	gap: .5rem;
+	font-size: 1.5rem;
+}
+
+.tournois-info form {
+	padding: .7rem 7%;
+}
+
+.tournois-info form .team{
+	display: flex;
+	gap: .5rem;
+}
+
+.tournois-info .aff {
+	position: relative;
+	display: inline-block;
+}
+
+.tournois-info .player-completion {
+	position: absolute;
+	top: 27%;
+	z-index: 1;
+	color: #888;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.tournois-info form .player {
+	color: #fff;
+	width: 15rem;
+	height: 3rem;
+	background: var(--hover-color-text);
+	border: 2px solid rgba(255, 255, 255, .2);
+	backdrop-filter: blur(20px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	border-radius: 10px;
+}
+
+.tournois-info form button {
+	color: #fff;
+	margin-top: .5rem;
+	width: 10rem;
+	height: 3rem;
+	background: var(--hover-color-text);
+	border: 2px solid rgba(255, 255, 255, .2);
+	backdrop-filter: blur(20px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	border-radius: 10px;
+}
+

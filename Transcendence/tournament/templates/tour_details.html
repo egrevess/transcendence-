@@ -3,19 +3,152 @@
    {% load static %}
    <link rel="stylesheet"  href="{% static 'css/tournement.css' %}">
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
    <div class="result">
 		
    </div>
-   {% if tournoi %}
 	<div class="available-tour">
-		<h1>tournoi {{ tournoi.name }}</h1>
+		<h1>Tournoi {{ tournoi.name }}</h1>
 			<div class="tournois-info">
+				<div class="info">
+					<i class='bx bx-calendar-week'></i>
+					<p> Le tournoi commence à  {{ tournoi.start | time:"H:i" }} </p>
+				</div>
+				<div class="info">
+					<p> Nombre de participants attendus : {{ expected }}</p>
+				</div>
+				<div class="info">
+					<p> Nombre de participants qui sont déjà inscrits : {{ count }}  </p>
+				</div>
+				{% if tournoi.id and tournoi.full == False %}
+				<form id="teamForm" method="post" class="teamForm" action="{% url 'tournament:details_tournement' id=tournoi.id %}">
+					{% csrf_token %}
+					<div class="team">
+						<div class="aff" >
+							<input type="text"  id="player" name="player" placeholder="Joueur " class="player" autocomplete="off">
+							<div class="player-completion" ></div>
+						</div>
+						<!-- <div class="aff" >
+							<input type="text"  id="player2" name="player2" placeholder="Joueur 2" class="player" autocomplete="off">
+							<div class="player-completion" ></div>
+						</div> -->
+					</div>
+					<button type="submit">Inscrire</button>
+				</form>
+				{% else %}
+				<div> Tournoi est full </div>
+				{% endif %}
+				
 
-				<p> Il commence à  {{ tournoi.start }} </p>
-				<p> Nombre de teams participantes : {{ tournoi.teams }}</p>
-				<p> Il reste x places disponibles </p>
-				<p> Pour s'inscrire vous devez déjà </p>
 			</div>
 	</div>
-	{% endif %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	var myUrl = "{% url 'tournament:search_players' %}";
+	$(document).ready(function() {
+		$('.player').on('input', function() {
+		var input = $(this); 
+        var query = $(this).val(); // Utilise la valeur de l'input actuel
+		var completionDisplay = input.next('.player-completion');
+        if(query.length > 0) {
+            $.ajax({
+                url: myUrl,
+                type: 'GET',
+                data: { 'query': query }, // 'q' comme dans votre vue Django
+                dataType: 'json',
+                success: function(data) {
+                    if(data[0] && data.length > 0 ) {
+                        var fullText = data[0].username;
+                        var partToComplete = fullText.substring(query.length);
+						var textWidth = calculateTextWidth(query) + 1;
+                        completionDisplay.text(partToComplete);
+						completionDisplay.css('left', textWidth + 'px');
+                    } else {
+                        completionDisplay.text(''); // Efface la complétion si aucun résultat pertinent
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erreur AJAX:', error);
+                    completionDisplay.text(''); // Efface la complétion en cas d'erreur
+					
+                }
+            });
+        } else {
+            completionDisplay.text(''); // Efface la complétion si l'input est vide
+        }
+		});
+
+		$('#teamForm').on('submit', function(event) {
+			// Empêcher le formulaire de se soumettre normalement
+			event.preventDefault();
+	
+			// Récupérer les données des champs de recherche
+			var player = $('#player').val();
+			// var player2 = $('#player2').val();
+	
+			// Envoyer les données du formulaire via AJAX
+			$.ajax({
+				url: $(this).attr('action'),  // URL d'action du formulaire
+				method: $(this).attr('method'),  // Méthode du formulaire (POST)
+				data: {
+					csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),  // Jeton CSRF
+					player: player,
+					// player2: player2
+				},
+				success: function(response) {
+					// Traitement de la réponse (par exemple, afficher un message de succès)
+					console.log(response);
+					if(response.success) {
+						url = "{% url 'tournament:tournement'%}"
+            			window.location.href = url;  // Utilisez l'URL de redirection fournie par le serveur
+        			} else {
+            // Gérer le cas où la réponse indique un échec
+            			alert(response.errors);  // Affichez le message d'erreur du serveur
+        			}
+				},
+				error: function(xhr, errmsg, err) {
+					console.log(errmsg);
+					if (xhr.status === 400) {
+						try {
+							const responseJson = JSON.parse(xhr.responseText);
+							if (responseJson.errors) {
+								console.log('Form errors:', responseJson.errors);
+								displayErrors(responseJson.errors);
+							} else {
+								console.log('Error without a proper error message:', xhr.responseText);
+							}
+						} catch (e) {
+							console.error('Error parsing JSON:', e);
+						}
+					} else {
+					console.log('Some other error: ', err);
+					}
+				}
+			});
+		});
+	});
+
+	function displayErrors(errors) {
+		const errorMessages = JSON.parse(errors);  // Parsez la chaîne JSON des erreurs
+		let messages = "";
+		for (const field in errorMessages) {
+			const fieldErrors = errorMessages[field];
+			fieldErrors.forEach(function(error) {
+				messages += error.message + "\n";
+			});
+		}
+		alert(messages);  // Affichez les messages d'erreur dans une alerte, ou adaptez selon vos besoins
+	}
+
+	function calculateTextWidth(text) {
+        var measurer = $('<span>', {
+            style: "visibility: hidden; white-space: nowrap; position: absolute; font-size: 16px; padding: 8px;",
+            text: text
+        }).appendTo('.available-tour');
+        var width = measurer.width();
+        measurer.remove();
+        return width;
+    }
+		// Ajouter des écouteurs d'événements pour la recherche AJAX
+</script>	
 {% endblock %}

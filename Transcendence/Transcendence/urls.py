@@ -20,6 +20,5 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
 	path('pong/', include('pong.urls')),
-	path('social-auth/', include('social_django.urls', namespace='social')),
 	path('tournament/', include('tournament.urls')),
 ]

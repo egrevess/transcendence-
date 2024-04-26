@@ -37,9 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'social_django',
 	'pong',
-	'tournament'
+	'tournament.apps.TournamentConfig',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +49,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'Transcendence.urls'
@@ -130,7 +128,7 @@ SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'pong.backends.Api42OAuth2',
+    #'pong.backends.Api42OAuth2',
 ]
 
 SOCIAL_AUTH_API42_KEY = 'u-s4t2ud-73237016c4b597f55e72fa5f2fefc51784847d3bc75429de04db80c969bf01fb'
